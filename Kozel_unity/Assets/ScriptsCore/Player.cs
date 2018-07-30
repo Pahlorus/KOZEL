@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ namespace GameCore
         }
         #endregion
 
-        Random random = new Random();
+        System.Random random = new System.Random();
         
         // Конструктор игрока.
         public Player(string name)
@@ -49,6 +50,14 @@ namespace GameCore
             _seatNumber = 0;
         }
 
-
+        // Конструктор бота.
+        public Player(int seatNumber)
+        {
+            _cardsOnHand = new List<Card>();
+            _typePlayer = false;
+            int index = random.Next(Enum.GetNames(typeof(Names)).Length);
+            _name = Enum.GetName(typeof(Names), index);
+            _seatNumber = seatNumber;
+        }
     }
 }
