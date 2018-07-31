@@ -4,6 +4,17 @@ using UnityEngine;
 
 namespace GameCore
 {
+
+    public interface IGame
+    {
+        void DealCard();
+        void MoveCard();
+        void CheckMove();
+        void RoundResult();
+    }
+
+
+
     public enum Suits { Clubs, Spades, Hearts, Diamonds, EmptySuit }
     public enum Values { Six, Seven, Eight, Nine, King, Ten, Ace, Jack, Queen, EmptyValues }
     public enum Trumps
@@ -16,18 +27,18 @@ namespace GameCore
     public class Game
     {
         #region Поля
-        Player _playerOne;
-        Player _playerTwo;
-        Player _playerThree;
-        Player _playerFour;
-        Player[] _arrayPlayers;
-        List<Card> _cardDeck;
-        List<Card> _cardOnTable;
-        List<Card> _tricksTeam1;
-        List<Card> _tricksTeam2;
-        int _scoreTeam1;
-        int _scoreTeam2;
-        Random _random;
+        private Player _playerOne;
+        private Player _playerTwo;
+        private Player _playerThree;
+        private Player _playerFour;
+        private Player[] _arrayPlayers;
+        private List<Card> _cardDeck;
+        private List<Card> _cardOnTable;
+        private List<Card> _tricksTeam1;
+        private List<Card> _tricksTeam2;
+        private int _scoreTeam1;
+        private int _scoreTeam2;
+        private Random _random;
 
         #endregion
 
@@ -50,16 +61,16 @@ namespace GameCore
 
        }
        // Ходы игроков (выбор карты и перемещение ее на стол).
-       public void CardMove()
+       public void MoveCard()
        {
 
        }
-       // Проверка правильности хода игрока
+       // Проверка правильности хода игрока.
        public void CheckMove()
        {
 
        }
-       // Определение результата захода, кто взял карты, кто делает следующий ход, зачисление взятки к соответствующей команде
+       // Определение результата захода, кто взял карты, кто делает следующий ход, зачисление взятки к соответствующей команде.
        public void RoundResult()
        {
 

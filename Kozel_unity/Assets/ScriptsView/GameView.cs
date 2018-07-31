@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameCore;
 
 namespace GameView
 {
-    public class GameView : MonoBehaviour
+    public class GameView : MonoBehaviour, IGame
     {
+
 
         // Use this for initialization
         void Start()
