@@ -81,12 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ScriptsCore\Card.cs" />
-    <Compile Include="Assets\ScriptsCore\CardDeck.cs" />
     <Compile Include="Assets\ScriptsCore\Game.cs" />
     <Compile Include="Assets\ScriptsCore\Player.cs" />
     <Compile Include="Assets\ScriptsCore\Trick.cs" />
     <Compile Include="Assets\ScriptsView\CardView.cs" />
-    <Compile Include="Assets\ScriptsView\CardDeckView.cs" />
     <Compile Include="Assets\ScriptsView\GameView.cs" />
     <Compile Include="Assets\ScriptsView\TrickView.cs" />
   </ItemGroup>

@@ -14,6 +14,7 @@ namespace GameCore
         private bool _typePlayer;
         private int _seatNumber;
         private List<Card> _cardsOnHand;
+        private System.Random _random = new System.Random();
         #endregion
 
         #region Свойства
@@ -39,8 +40,8 @@ namespace GameCore
         }
         #endregion
 
-        System.Random random = new System.Random();
-        
+
+
         // Конструктор игрока.
         public Player(string name)
         {
@@ -55,9 +56,18 @@ namespace GameCore
         {
             _cardsOnHand = new List<Card>();
             _typePlayer = false;
-            int index = random.Next(Enum.GetNames(typeof(Names)).Length);
+            int index = _random.Next(Enum.GetNames(typeof(Names)).Length);
             _name = Enum.GetName(typeof(Names), index);
             _seatNumber = seatNumber;
         }
+
+        public Card GetCard()
+        {
+            Card card = null;
+            return card;
+        }
+
+
+
     }
 }
