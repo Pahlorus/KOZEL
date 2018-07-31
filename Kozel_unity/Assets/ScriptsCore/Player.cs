@@ -12,7 +12,6 @@ namespace GameCore
         #region Поля
         private string _name;
         private bool _typePlayer;
-        private int _seatNumber;
         private List<Card> _cardsOnHand;
         private System.Random _random = new System.Random();
         #endregion
@@ -48,25 +47,23 @@ namespace GameCore
             _cardsOnHand = new List<Card>();
             _typePlayer = true;
             _name = name;
-            _seatNumber = 0;
         }
 
         // Конструктор бота.
-        public Player(int seatNumber)
+        public Player()
         {
             _cardsOnHand = new List<Card>();
             _typePlayer = false;
             int index = _random.Next(Enum.GetNames(typeof(Names)).Length);
             _name = Enum.GetName(typeof(Names), index);
-            _seatNumber = seatNumber;
         }
-
+        #region Методы
         public Card GetCard()
         {
             Card card = null;
             return card;
         }
-
+        #endregion
 
 
     }

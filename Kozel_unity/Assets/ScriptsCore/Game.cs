@@ -15,6 +15,58 @@ namespace GameCore
 
     public class Game
     {
+        #region Поля
+        Player _playerOne;
+        Player _playerTwo;
+        Player _playerThree;
+        Player _playerFour;
+        Player[] _arrayPlayers;
+        List<Card> _cardDeck;
+        List<Card> _cardOnTable;
+        List<Card> _tricksTeam1;
+        List<Card> _tricksTeam2;
+        int _scoreTeam1;
+        int _scoreTeam2;
+        Random _random;
+
+        #endregion
+
+        #region Свойства
+
+        #endregion
+
+
+
+        public Game()
+        {
+
+        }
+
+
+        #region Методы
+       public void DealCard()
+       {
+
+       }
+       public void CardMove()
+       {
+
+       }
+       public void CheckMove()
+       {
+
+       }
+       public void RoundResult()
+       {
+
+       }
+       public void GetScore()
+       {
+
+       }
+        #endregion
+
+
 
     }
 }
