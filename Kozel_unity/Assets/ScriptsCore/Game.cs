@@ -95,7 +95,7 @@ namespace GameCore
                     _state = State.Game;
                     break;
                 case State.Game:
-                    if (_scoreTeam1 < _scoreLimit || _scoreTeam1 < _scoreLimit) 
+                    if (_scoreTeam1 < _scoreLimit || _scoreTeam2 < _scoreLimit) 
                     {
                         _state = State.Round;
                     }                    
