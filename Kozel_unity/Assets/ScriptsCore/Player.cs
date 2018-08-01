@@ -27,11 +27,7 @@ namespace GameCore
             get { return _typePlayer; }
             set { _typePlayer = value; }
         }
-        public int SeatNumber
-        {
-            get { return _seatNumber; }
-            set { _seatNumber = value; }
-        }
+   
         public List<Card> CardsOnHand
         {
             get { return _cardsOnHand; }

@@ -7,10 +7,12 @@ namespace GameView
 {
     public class CardView : MonoBehaviour
     {
+  
 
         // Use this for initialization
         void Start()
         {
+        
 
         }
 

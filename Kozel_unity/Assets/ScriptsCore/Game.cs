@@ -24,7 +24,7 @@ namespace GameCore
     }
 
 
-    public class Game
+    public class Game : MonoBehaviour, IGame
     {
         #region Поля
         private Player _playerOne;
