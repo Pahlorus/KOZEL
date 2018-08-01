@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace GameCore
 {
-
+    /*
     public interface IGame
     {
         void DealCard();
         void MoveCard();
         void CheckMove();
-        void RoundResult();
+        void StepResult();
     }
-
+    */
 
 
     public enum Suits {Clubs, Spades, Hearts, Diamonds}
     public enum Values {Six, Seven, Eight, Nine, King, Ten, Ace, Jack, Queen}
-    public enum State { StartGame, Game, Round, FinishGame }
+    public enum State { Game, Round, Step, EndGame }
     public enum Trumps
     {
         Six_of_Clubs, Queen_of_Clubs, Queen_of_Spades, Queen_of_Hearts, Queen_of_Diamonds, Jack_of_Clubs, Jack_of_Spades, Jack_of_Hearts, Jack_of_Diamonds, Ace_of_Diamonds,
@@ -25,7 +25,7 @@ namespace GameCore
     }
 
 
-    public class Game : MonoBehaviour, IGame
+    public class Game : MonoBehaviour//, IGame
     {
         #region Поля
         private Player[] _arrayPlayers;
@@ -37,6 +37,7 @@ namespace GameCore
         private int _scoreTeam1;
         private int _scoreTeam2;
         private const int _scoreLimit = 12;
+        private const int _cardDeckQuantity = 36;
         private Random _random;
 
         #endregion
@@ -54,33 +55,32 @@ namespace GameCore
             _arrayPlayers[1] = new Player();
             _arrayPlayers[2] = new Player();
             _arrayPlayers[3] = new Player();
-            _state = State.StartGame;
+            _state = State.Game;
         }
 
 
         #region Методы
-       // Раздача карт и проверка на условия пересдачи, перерасдача.
-       public void DealCard()
+
+       public void DealCardToPlayers()
        {
 
        }
-       // Ходы игроков (выбор карты и перемещение ее на стол).
-       public void MoveCard()
+ 
+       public void PlayersSelectAndMoveCard()
        {
 
        }
-       // Проверка правильности хода игрока.
-       public void CheckMove()
+
+       public void CheckCorrectnessMoveCard()
        {
 
        }
-       // Определение результата захода, кто взял карты, кто делает следующий ход, зачисление взятки к соответствующей команде.
-       public void RoundResult()
+
+       public void GetStepScore()
        {
 
        }
-       // Вычисление очков по результатам кона, определение команды выигравшей кон.
-       public void GetScore()
+       public void GetEndGameScore()
        {
 
        }
@@ -90,26 +90,33 @@ namespace GameCore
         {
             switch (_state)
             {
-                case State.StartGame:
-                     DealCard();
-                    _state = State.Game;
-                    break;
                 case State.Game:
-                    if (_scoreTeam1 < _scoreLimit || _scoreTeam2 < _scoreLimit) 
+                    if (_scoreTeam1 > _scoreLimit || _scoreTeam2 >_scoreLimit)
                     {
-                        _state = State.Round;
-                    }                    
+                        GetEndGameScore();
+                        _state = State.EndGame;
+                    }
                     else
                     {
-                        GetScore();
-                        _state = State.FinishGame;
+                        DealCardToPlayers();
+                        _state = State.Round;
                     }
                     break;
                 case State.Round:
-                    MoveCard();
-                    CheckMove();
-                    RoundResult();
-                    _state = State.Game;
+                    if ((_tricksTeam1.Count + _tricksTeam2.Count)< _cardDeckQuantity) 
+                    {
+                        _state = State.Step;
+                    }                    
+                    else
+                    {
+                        _state = State.Game;
+                    }
+                    break;
+                case State.Step:
+                    PlayersSelectAndMoveCard();
+                    CheckCorrectnessMoveCard();
+                    GetStepScore();
+                    _state = State.Round;
                     break;
             }
         }
