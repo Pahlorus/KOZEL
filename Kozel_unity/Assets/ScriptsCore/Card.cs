@@ -7,7 +7,7 @@ namespace GameCore
 
 
 
-    public class Card
+    public struct Card
     {
         #region Поля
         private Suits _suit;

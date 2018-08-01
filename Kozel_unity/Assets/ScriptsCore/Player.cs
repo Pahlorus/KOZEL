@@ -54,10 +54,9 @@ namespace GameCore
             _name = Enum.GetName(typeof(Names), index);
         }
         #region Методы
-        public Card GetCard()
+        public void GetCard()
         {
-            Card card = null;
-            return card;
+
         }
         #endregion
 
