@@ -15,25 +15,19 @@ namespace GameCore
     */
 
 
-    public enum Suits {Clubs, Spades, Hearts, Diamonds}
-    public enum Values {Six, Seven, Eight, Nine, King, Ten, Ace, Jack, Queen}
-    public enum State { Game, Round, Step, EndGame }
-    public enum Trumps
-    {
-        Six_of_Clubs, Queen_of_Clubs, Queen_of_Spades, Queen_of_Hearts, Queen_of_Diamonds, Jack_of_Clubs, Jack_of_Spades, Jack_of_Hearts, Jack_of_Diamonds, Ace_of_Diamonds,
-        Ten_of_Diamonds, King_of_Diamonds, Nine_of_Diamonds, Eight_of_Diamonds, Seven_of_Diamonds, Six_of_Diamonds
-    }
+   
+
+
 
 
     public class Game : MonoBehaviour//, IGame
     {
         #region Поля
         private Player[] _arrayPlayers;
+        private Card[] _arrayCardOnTable;
         private List<Card> _cardDeck;
-        private List<Card> _cardOnTable;
         private List<Card> _tricksTeam1;
         private List<Card> _tricksTeam2;
-        private State _state;
         private int _scoreTeam1;
         private int _scoreTeam2;
         private const int _scoreLimit = 12;
@@ -55,7 +49,11 @@ namespace GameCore
             _arrayPlayers[1] = new Player();
             _arrayPlayers[2] = new Player();
             _arrayPlayers[3] = new Player();
-            _state = State.Game;
+            _arrayCardOnTable = new Card[4];
+            _cardDeck = new List<Card>();
+            _tricksTeam1 = new List<Card>();
+            _tricksTeam2 = new List<Card>();
+            
         }
 
 
@@ -75,50 +73,65 @@ namespace GameCore
        {
 
        }
-
-       public void GetStepScore()
+       public bool IsCardsOnHands()
+       {
+            return true;
+       }
+       public bool IsArrayCardOnTableFull()
+       {
+           return true;
+       }
+        public void GetStepResult()
        {
 
        }
-       public void GetEndGameScore()
+       public void GetEndGameResult()
        {
 
        }
 
-
-        void Update()
+        void Start()
         {
-            switch (_state)
+            _scoreTeam1 = 0;
+            _scoreTeam2 = 0;
+            DealCardToPlayers();
+        }
+            void Update()
+        {
+
+            if (IsCardsOnHands())
             {
-                case State.Game:
-                    if (_scoreTeam1 > _scoreLimit || _scoreTeam2 >_scoreLimit)
+                for (int i = 0; i < _arrayPlayers.Length; i++)
+                {
+                    if (_arrayCardOnTable[i].Name == null)
                     {
-                        GetEndGameScore();
-                        _state = State.EndGame;
+                        PlayersSelectAndMoveCard();
+                        CheckCorrectnessMoveCard();
                     }
-                    else
-                    {
-                        DealCardToPlayers();
-                        _state = State.Round;
-                    }
-                    break;
-                case State.Round:
-                    if ((_tricksTeam1.Count + _tricksTeam2.Count)< _cardDeckQuantity) 
-                    {
-                        _state = State.Step;
-                    }                    
-                    else
-                    {
-                        _state = State.Game;
-                    }
-                    break;
-                case State.Step:
-                    PlayersSelectAndMoveCard();
-                    CheckCorrectnessMoveCard();
-                    GetStepScore();
-                    _state = State.Round;
-                    break;
+                }
+                if (IsArrayCardOnTableFull())
+                {
+                    GetStepResult();
+                }            
             }
+            else
+            {            
+                if (_scoreTeam1< _scoreLimit && _scoreTeam1 < _scoreLimit)
+                {
+                    DealCardToPlayers();
+                }
+                else
+                {
+                    GetEndGameResult();
+                }   
+            }
+            
+
+
+
+
+
+
         }
         #endregion
     }

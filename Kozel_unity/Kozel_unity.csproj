@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ScriptsCore\Card.cs" />
+    <Compile Include="Assets\ScriptsCore\CardDesign.cs" />
     <Compile Include="Assets\ScriptsCore\Game.cs" />
     <Compile Include="Assets\ScriptsCore\Player.cs" />
     <Compile Include="Assets\ScriptsView\CardView.cs" />
