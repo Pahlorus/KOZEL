@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GameCore
 {
+
     public enum Names { Ivan, Dmitry, Michail, Fedor, Anton, Sergei, Denis, Anatoly, Vladimir };
 
     public class Player
@@ -14,6 +15,7 @@ namespace GameCore
         private bool _typePlayer;
         private List<Card> _cardsOnHand;
         private System.Random _random = new System.Random();
+        private BotLogic _logic;
         #endregion
 
         #region Свойства
@@ -52,11 +54,20 @@ namespace GameCore
             _typePlayer = false;
             int index = _random.Next(Enum.GetNames(typeof(Names)).Length);
             _name = Enum.GetName(typeof(Names), index);
+            _logic = new BotLogic();
         }
         #region Методы
-        public void GetCard()
+        public bool GetCard(out Card card, Card[] arrayCardOnTable)
         {
-
+            card = _logic.BotSelectCard(_cardsOnHand, arrayCardOnTable);
+            if (card.Name != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
 

@@ -1,26 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    /*
+    
     public interface IGame
     {
-        void DealCard();
-        void MoveCard();
-        void CheckMove();
-        void StepResult();
+        void StartGame();
+
     }
-    */
-
-
-   
 
 
 
 
-    public class Game : MonoBehaviour//, IGame
+
+    public class Game : MonoBehaviour, IGame
     {
         #region Поля
         private Player[] _arrayPlayers;
@@ -28,16 +24,21 @@ namespace GameCore
         private List<Card> _cardDeck;
         private List<Card> _tricksTeam1;
         private List<Card> _tricksTeam2;
+        private bool _isGame;
         private int _scoreTeam1;
         private int _scoreTeam2;
         private const int _scoreLimit = 12;
         private const int _cardDeckQuantity = 36;
-        private Random _random;
+        private UnityEngine.Random _random;
 
         #endregion
 
         #region Свойства
-
+        public bool IsGame
+            {
+            get {return _isGame; }
+           // set { _isGame = value; }
+            }
         #endregion
 
 
@@ -53,79 +54,101 @@ namespace GameCore
             _cardDeck = new List<Card>();
             _tricksTeam1 = new List<Card>();
             _tricksTeam2 = new List<Card>();
-            
         }
 
 
         #region Методы
 
-       public void DealCardToPlayers()
-       {
-
-       }
- 
-       public void PlayersSelectAndMoveCard()
-       {
-
-       }
-
-       public void CheckCorrectnessMoveCard()
-       {
-
-       }
-       public bool IsCardsOnHands()
-       {
-            return true;
-       }
-       public bool IsArrayCardOnTableFull()
-       {
-           return true;
-       }
-        public void GetStepResult()
-       {
-
-       }
-       public void GetEndGameResult()
-       {
-
-       }
-
-        void Start()
+        public void StartGame()
         {
-            _scoreTeam1 = 0;
-            _scoreTeam2 = 0;
-            DealCardToPlayers();
+            _isGame = true;
         }
-            void Update()
+
+        public void DealCardToPlayers()
+        {
+            SetSecuencingPlayrs();
+        }
+
+        public void PlayerSelectCard(ref Card card, Player player, Card[] arrayCardOnTable)
+        {
+            if (player.GetCard(ref card, _arrayCardOnTable))
+            {
+                player.CardsOnHand.Remove(card);
+            }
+        }
+
+        public bool IsCorrectCard(ref Card card, Player player, Card[] arrayCardOnTable)
+        {
+            player.CardsOnHand.Add(card);
+            return true;
+        }
+
+        public bool IsCardsOnHands()
+        {
+            return true;
+        }
+
+        public bool IsArrayCardOnTableFull()
+        {
+           return true;
+        }
+
+        public void GetStepResult()
+        {
+            SetSecuencingPlayrs();
+        }
+
+        public void GetEndGameResult()
         {
 
-            if (IsCardsOnHands())
+        }
+
+        public void MoveSelecteCard(ref Card card)
+        {
+
+        }
+
+        public void SetSecuencingPlayrs()
+        {
+
+        }
+
+        void Update()
+        {
+
+            if (_isGame)
             {
-                for (int i = 0; i < _arrayPlayers.Length; i++)
+                if (IsCardsOnHands())
                 {
-                    if (_arrayCardOnTable[i].Name == null)
+                    for (int i = 0; i < _arrayPlayers.Length; i++)
                     {
-                        PlayersSelectAndMoveCard();
-                        CheckCorrectnessMoveCard();
+                        Card card = new Card();
+                        PlayerSelectCard( ref card, _arrayPlayers[i], _arrayCardOnTable);
+                        if (IsCorrectCard(ref card, _arrayPlayers[i], _arrayCardOnTable))
+                        {
+                            MoveSelecteCard(ref card);
+                        }
+                       
                     }
-                }
-                if (IsArrayCardOnTableFull())
-                {
-                    GetStepResult();
-                }            
-            }
-            else
-            {            
-                if (_scoreTeam1< _scoreLimit && _scoreTeam1 < _scoreLimit)
-                {
-                    DealCardToPlayers();
+                    if (IsArrayCardOnTableFull())
+                    {
+                        GetStepResult();
+                    }
                 }
                 else
                 {
-                    GetEndGameResult();
-                }   
+                    if (_scoreTeam1 < _scoreLimit && _scoreTeam2 < _scoreLimit)
+                    {
+                        DealCardToPlayers();
+                    }
+                    else
+                    {
+                        GetEndGameResult();
+                        _isGame = false;
+                    }
+                }
             }
-            
+
 
 
 
@@ -133,6 +156,8 @@ namespace GameCore
 
 
         }
+
+
         #endregion
     }
 }
