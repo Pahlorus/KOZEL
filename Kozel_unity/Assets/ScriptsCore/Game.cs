@@ -77,10 +77,21 @@ namespace GameCore
             }
         }
 
-        public bool IsCorrectCard(ref Card card, Player player, Card[] arrayCardOnTable)
+        public bool IsCorrectCard(Card card, Player player, Card[] arrayCardOnTable)
         {
-            player.CardsOnHand.Add(card);
-            return true;
+            bool isCorrect = false;
+            // Проверка.
+            if (isCorrect)
+            {
+                return true;
+            }
+            else
+            {
+                player.CardsOnHand.Add(card);
+                return false;
+            }
+            
+            
         }
 
         public bool IsCardsOnHands()
@@ -124,9 +135,9 @@ namespace GameCore
                     {
                         Card card = new Card();
                         PlayerSelectCard( ref card, _arrayPlayers[i], _arrayCardOnTable);
-                        if (IsCorrectCard(ref card, _arrayPlayers[i], _arrayCardOnTable))
+                        if (IsCorrectCard(card, _arrayPlayers[i], _arrayCardOnTable))
                         {
-                            MoveSelecteCard(ref card);
+                            _arrayCardOnTable[i] = card;
                         }
                        
                     }
