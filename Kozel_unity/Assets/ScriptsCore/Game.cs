@@ -12,7 +12,7 @@ namespace GameCore
 
     }
 
-    public class Game : MonoBehaviour, IGame
+    public class Awake : MonoBehaviour, IGame
     {
         #region Поля
         private Player[] _arrayPlayers;
@@ -30,17 +30,15 @@ namespace GameCore
         #endregion
 
         #region Свойства
-        public bool IsGame
-            {
-            get {return _isGame; }
-           // set { _isGame = value; }
-            }
+        
         #endregion
+        
 
         private Func<Card, Card[], bool> _checkFunction =IsCorrectCard;
 
-        public Game()
+        private Awake()
         {
+            enabled = false;
             _arrayPlayers = new Player[4];
             _arrayPlayers[0] = new Player();
             _arrayPlayers[1] = new Player();
@@ -50,15 +48,14 @@ namespace GameCore
             _cardDeck = new List<Card>();
             _tricksTeam1 = new List<Card>();
             _tricksTeam2 = new List<Card>();
-            GetComponent<Game>().enabled = false;
-        }
+         }
 
 
         #region Методы
 
         public void StartGame()
         {
-            GetComponent<Game>().enabled = true;
+          enabled = true;
         }
 
         public void DealCardToPlayers()
@@ -100,7 +97,7 @@ namespace GameCore
 
         public void GetEndGameResult()
         {
-            GetComponent<Game>().enabled = false;
+            enabled = false;
         }
 
         public void SetSecuencingPlayrs()
