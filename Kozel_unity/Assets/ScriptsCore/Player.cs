@@ -57,12 +57,13 @@ namespace GameCore
             _logic = new BotLogic();
         }
         #region Методы
-        public bool GetCard(out Card card, Card[] arrayCardOnTable)
+        public bool GetCard(out Card card, Card[] arrayCardOnTable, Func<Card, Card[], bool> checkFunction)
         {
+            // Пока учитывается только выбор карты ботом.
             card = _logic.BotSelectCard(_cardsOnHand, arrayCardOnTable);
-            if (card.Name != null)
+            if (checkFunction(card, arrayCardOnTable))
             {
-   
+                CardsOnHand.Remove(card);
                 return true;
                
             }
