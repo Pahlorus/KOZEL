@@ -97,7 +97,7 @@ namespace GameCore
 
         public void GetEndGameResult()
         {
-            enabled = false;
+
         }
 
         public void SetSecuencingPlayrs()
