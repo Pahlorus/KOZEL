@@ -12,10 +12,6 @@ namespace GameCore
 
     }
 
-
-
-
-
     public class Game : MonoBehaviour, IGame
     {
         #region Поля
@@ -41,7 +37,7 @@ namespace GameCore
             }
         #endregion
 
-
+        private Func<Card, Card[], bool> _checkFunction =IsCorrectCard;
 
         public Game()
         {
@@ -54,6 +50,7 @@ namespace GameCore
             _cardDeck = new List<Card>();
             _tricksTeam1 = new List<Card>();
             _tricksTeam2 = new List<Card>();
+            GetComponent<Game>().enabled = false;
         }
 
 
@@ -61,23 +58,16 @@ namespace GameCore
 
         public void StartGame()
         {
-            _isGame = true;
+            GetComponent<Game>().enabled = true;
         }
 
         public void DealCardToPlayers()
-        {
+        {   
+            //только при первой раздаче.
             SetSecuencingPlayrs();
         }
 
-        public void PlayerSelectCard(ref Card card, Player player, Card[] arrayCardOnTable)
-        {
-            if (player.GetCard(ref card, _arrayCardOnTable))
-            {
-                player.CardsOnHand.Remove(card);
-            }
-        }
-
-        public bool IsCorrectCard(Card card, Player player, Card[] arrayCardOnTable)
+        public static bool IsCorrectCard(Card card, Card[] arrayCardOnTable)
         {
             bool isCorrect = false;
             // Проверка.
@@ -87,7 +77,6 @@ namespace GameCore
             }
             else
             {
-                player.CardsOnHand.Add(card);
                 return false;
             }
             
@@ -111,12 +100,7 @@ namespace GameCore
 
         public void GetEndGameResult()
         {
-
-        }
-
-        public void MoveSelecteCard(ref Card card)
-        {
-
+            GetComponent<Game>().enabled = false;
         }
 
         public void SetSecuencingPlayrs()
@@ -127,18 +111,15 @@ namespace GameCore
         void Update()
         {
 
-            if (_isGame)
-            {
                 if (IsCardsOnHands())
                 {
                     for (int i = 0; i < _arrayPlayers.Length; i++)
                     {
-                        Card card = new Card();
-                        PlayerSelectCard( ref card, _arrayPlayers[i], _arrayCardOnTable);
-                        if (IsCorrectCard(card, _arrayPlayers[i], _arrayCardOnTable))
-                        {
-                            _arrayCardOnTable[i] = card;
-                        }
+                        Card card;
+                       if( _arrayPlayers[i].GetCard(out card, _arrayCardOnTable, _checkFunction))
+                       {
+                           _arrayCardOnTable[i] = card;
+                       }
                        
                     }
                     if (IsArrayCardOnTableFull())
@@ -155,20 +136,10 @@ namespace GameCore
                     else
                     {
                         GetEndGameResult();
-                        _isGame = false;
                     }
                 }
-            }
-
-
-
-
-
-
-
         }
-
-
         #endregion
+    
     }
 }

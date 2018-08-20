@@ -62,7 +62,9 @@ namespace GameCore
             card = _logic.BotSelectCard(_cardsOnHand, arrayCardOnTable);
             if (card.Name != null)
             {
+   
                 return true;
+               
             }
             else
             {
