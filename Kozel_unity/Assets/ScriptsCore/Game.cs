@@ -12,7 +12,7 @@ namespace GameCore
 
     }
 
-    public class Awake : MonoBehaviour, IGame
+    public class Game : MonoBehaviour, IGame
     {
         #region Поля
         private Player[] _arrayPlayers;
@@ -36,7 +36,12 @@ namespace GameCore
 
         private Func<Card, Card[], bool> _checkFunction =IsCorrectCard;
 
-        private Awake()
+
+
+
+        #region Методы
+
+        private void Awake()
         {
             enabled = false;
             _arrayPlayers = new Player[4];
@@ -48,10 +53,7 @@ namespace GameCore
             _cardDeck = new List<Card>();
             _tricksTeam1 = new List<Card>();
             _tricksTeam2 = new List<Card>();
-         }
-
-
-        #region Методы
+        }
 
         public void StartGame()
         {
