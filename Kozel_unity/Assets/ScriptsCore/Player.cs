@@ -10,7 +10,7 @@ namespace GameCore
 
     public class Player
     {
-        #region Поля
+        #region Fields
         private string _name;
         private bool _typePlayer;
         private List<Card> _cardsOnHand;

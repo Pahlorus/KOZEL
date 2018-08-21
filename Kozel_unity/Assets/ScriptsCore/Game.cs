@@ -14,7 +14,7 @@ namespace GameCore
 
     public class Game : MonoBehaviour, IGame
     {
-        #region Поля
+        #region Fields
         private Player[] _arrayPlayers;
         private Card[] _arrayCardOnTable;
         private List<Card> _cardDeck;
@@ -29,17 +29,17 @@ namespace GameCore
 
         #endregion
 
-        #region Свойства
-        
+        #region Properties
+
         #endregion
-        
+
 
         private Func<Card, Card[], bool> _checkFunction =IsCorrectCard;
 
 
 
 
-        #region Методы
+        #region Metods
 
         private void Awake()
         {
@@ -51,6 +51,15 @@ namespace GameCore
             _arrayPlayers[3] = new Player();
             _arrayCardOnTable = new Card[4];
             _cardDeck = new List<Card>();
+
+            for (int i = 0; i < Enum.GetNames(typeof(Suits)).Length; i++)
+            {
+                for (int j = 0; j < Enum.GetNames(typeof(Values)).Length; j++)
+                {
+                    _cardDeck.Add(new Card((Suits)i, (Values)j));
+                }   
+            }
+
             _tricksTeam1 = new List<Card>();
             _tricksTeam2 = new List<Card>();
         }
@@ -67,19 +76,8 @@ namespace GameCore
         }
 
         public static bool IsCorrectCard(Card card, Card[] arrayCardOnTable)
-        {
-            bool isCorrect = false;
-            // Проверка.
-            if (isCorrect)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            
-            
+        {      
+            return false;
         }
 
         public bool IsCardsOnHands()

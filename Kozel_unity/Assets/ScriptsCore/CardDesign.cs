@@ -18,11 +18,11 @@ namespace GameCore
         Seven,
         Eight,
         Nine,
-        King,
         Ten,
-        Ace,
         Jack,
-        Queen
+        Queen,
+        King,
+        Ace
     }
     //Переделать козыри в массив!
     public enum Trumps
