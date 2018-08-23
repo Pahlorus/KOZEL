@@ -25,7 +25,8 @@ namespace GameCore
         private int _scoreTeam2;
         private const int _scoreLimit = 12;
         private const int _cardDeckQuantity = 36;
-        private UnityEngine.Random _random;
+        public const int _quantityCardForPlayer = 9;
+        private System.Random _random;
 
         #endregion
 
@@ -43,7 +44,7 @@ namespace GameCore
 
         private void Awake()
         {
-            enabled = false;
+            enabled = true;
             _arrayPlayers = new Player[4];
             _arrayPlayers[0] = new Player();
             _arrayPlayers[1] = new Player();
@@ -51,17 +52,27 @@ namespace GameCore
             _arrayPlayers[3] = new Player();
             _arrayCardOnTable = new Card[4];
             _cardDeck = new List<Card>();
+            _tricksTeam1 = new List<Card>();
+            _tricksTeam2 = new List<Card>();
 
+            // Наполнение колоды карт.
             for (int i = 0; i < Enum.GetNames(typeof(Suits)).Length; i++)
             {
                 for (int j = 0; j < Enum.GetNames(typeof(Values)).Length; j++)
                 {
                     _cardDeck.Add(new Card((Suits)i, (Values)j));
-                }   
+                }
             }
 
-            _tricksTeam1 = new List<Card>();
-            _tricksTeam2 = new List<Card>();
+            // Перемешивание карт.
+           /* List<Card> _newCardDeck = new List<Card>();
+            while (_cardDeck.Count > 0)
+            {
+                int CardToMove = _random.Next(_cardDeck.Count);
+                _newCardDeck.Add(_cardDeck[CardToMove]);
+                _cardDeck.RemoveAt(CardToMove);
+            }
+            _cardDeck = _newCardDeck;*/
         }
 
         public void StartGame()
@@ -71,7 +82,17 @@ namespace GameCore
 
         public void DealCardToPlayers()
         {   
-            //только при первой раздаче.
+            for(int i = 0; i < _arrayPlayers.Length; i++)
+            {
+                for (int j = 0; j < _quantityCardForPlayer; j++)
+                {
+
+                    _arrayPlayers[i].CardsOnHand.Add(_cardDeck[0]);
+                    _cardDeck.RemoveAt(0);
+                }
+            }
+
+            // Только при первой раздаче, далее должны быть хваления.
             SetSecuencingPlayrs();
         }
 

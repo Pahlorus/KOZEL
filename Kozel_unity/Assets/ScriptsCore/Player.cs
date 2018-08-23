@@ -29,7 +29,6 @@ namespace GameCore
             get { return _typePlayer; }
             set { _typePlayer = value; }
         }
-   
         public List<Card> CardsOnHand
         {
             get { return _cardsOnHand; }
