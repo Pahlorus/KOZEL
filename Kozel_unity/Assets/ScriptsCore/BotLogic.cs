@@ -10,7 +10,7 @@ namespace GameCore
         public Card BotSelectCard(List<Card> cardsOnHands, Card[] arrayCardOnTable)
         {
             Random random = new Random();
-            return cardsOnHands[random.Next(cardsOnHands.Count - 1)];
+            return cardsOnHands[random.Next(cardsOnHands.Count)];
         }
     }
 }
