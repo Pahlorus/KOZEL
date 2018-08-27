@@ -31,11 +31,7 @@ namespace GameCore
 
         #endregion
 
-
         private Func<Card, Card[], bool> _checkFunction = IsCorrectCard;
-
-
-
 
         #region Metods
 
@@ -45,13 +41,17 @@ namespace GameCore
             _arrayPlayers = new Player[4];
             _scoreTeam = new int[2];
             _tricksTeam = new List<Card>[2];
+            _scoreTeam[0] = 0;
+            _scoreTeam[1] = 0;
+            _tricksTeam[0] = new List<Card>();
+            _tricksTeam[1] = new List<Card>();
             _arrayPlayers[0] = new Player();
             _arrayPlayers[1] = new Player();
             _arrayPlayers[2] = new Player();
             _arrayPlayers[3] = new Player();
             _arrayCardOnTable = new Card[4];
             _cardDeck = new List<Card>();
-            FillingCardDeck();
+           // FillingCardDeck();
         }
 
         public void StartGame()
@@ -135,26 +135,46 @@ namespace GameCore
             int randomIndex = random.Next(_scoreTeam.Length);
             for (int i = 0; i<_arrayCardOnTable.Length; i++)
             {
-                _tricksTeam[randomIndex].Add(_arrayCardOnTable[i]);
+               _tricksTeam[randomIndex].Add(_arrayCardOnTable[i]);
             }
+            // Удалить.
+            Debug.Log("Взятку взяла команда" + randomIndex );
             Array.Clear(_arrayCardOnTable, 0, _arrayCardOnTable.Length);
             SetSecuencingPlayrs();
-        }
-        public void ReturnCardToCardDeck()
-        {
-
         }
 
         public void GetGameStepResult()
         {
+            System.Random _random = new System.Random();
             int randomIndex = _random.Next(_scoreTeam.Length);
-            _scoreTeam[randomIndex] = _scoreTeam[randomIndex]+1;
+            _scoreTeam[randomIndex] = _scoreTeam[randomIndex]+2;
+            _tricksTeam[0].Clear();
+            _tricksTeam[1].Clear();
+            // Удалить.
+            Debug.Log("Раунд выиграла команда" + randomIndex);
             SetSecuencingPlayrs();
         }
 
         public void GetEndGameResult()
         {
+            if (_scoreTeam[0] > _scoreTeam[1])
+            {
+                // Удалить.
+                Debug.Log("Победила команда 1");
+            }
+            if (_scoreTeam[0] < _scoreTeam[1])
+            {
+                // Удалить.
+                Debug.Log("Победила команда 2");
+            }
+            if (_scoreTeam[0] < _scoreTeam[1])
+            {
+                // Удалить.
+                Debug.Log("Ничья");
+            }
 
+            // Удалить.
+            enabled = false;
         }
 
         public void SetSecuencingPlayrs()
@@ -183,8 +203,9 @@ namespace GameCore
                 }
                 else
                 {
-                    if (_cardDeck.Count == 0)
+                    if ((_scoreTeam[0] < _scoreLimit && _scoreTeam[1] < _scoreLimit)&& (_tricksTeam[0].Count != 0 || _tricksTeam[0].Count != 0))
                     {
+
                         GetGameStepResult();
                     }
                     if (_scoreTeam[0] < _scoreLimit && _scoreTeam[1] < _scoreLimit)

@@ -64,12 +64,17 @@ namespace GameCore
             {
                 CardsOnHand.Remove(card);
                 return true;
-               
+
             }
             else
             {
                 return false;
             }
+        }
+        
+        public int GetCardCount()
+        {
+            return _cardsOnHand.Count;
         }
         #endregion
 
