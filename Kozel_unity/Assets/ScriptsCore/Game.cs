@@ -167,7 +167,7 @@ namespace GameCore
                 // Удалить.
                 Debug.Log("Победила команда 2");
             }
-            if (_scoreTeam[0] < _scoreTeam[1])
+            if (_scoreTeam[0] == _scoreTeam[1])
             {
                 // Удалить.
                 Debug.Log("Ничья");
@@ -203,9 +203,8 @@ namespace GameCore
                 }
                 else
                 {
-                    if ((_scoreTeam[0] < _scoreLimit && _scoreTeam[1] < _scoreLimit)&& (_tricksTeam[0].Count != 0 || _tricksTeam[0].Count != 0))
+                    if ((_scoreTeam[0] < _scoreLimit && _scoreTeam[1] < _scoreLimit)&& (_tricksTeam[0].Count != 0 || _tricksTeam[1].Count != 0))
                     {
-
                         GetGameStepResult();
                     }
                     if (_scoreTeam[0] < _scoreLimit && _scoreTeam[1] < _scoreLimit)
