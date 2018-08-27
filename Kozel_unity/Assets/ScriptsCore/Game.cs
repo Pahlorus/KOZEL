@@ -103,20 +103,30 @@ namespace GameCore
 
         public bool IsCardsOnHands()
         {
-            if (_arrayPlayers[0].CardsOnHand.Count!=0 || _arrayPlayers[1].CardsOnHand.Count != 0 || _arrayPlayers[2].CardsOnHand.Count != 0 | _arrayPlayers[3].CardsOnHand.Count != 0)
+            bool isCardsOnHands = false;
+            for (int i = 0; i < _arrayPlayers.Length; i++)
             {
-                return true;
+                if (_arrayPlayers[i].CardsOnHand.Count != 0)
+                {
+                    isCardsOnHands = true;
+                    break;
+                }
             }
-            else
-            {
-                return false;
-            }
-            
+            return isCardsOnHands;        
         }
 
         public bool IsArrayCardOnTableFull()
         {
-           return true;
+            bool isArrayCardOnTableFull = true;
+            for (int i = 0; i< _arrayCardOnTable.Length; i++)
+            {
+                if (_arrayCardOnTable[i].Name == null)
+                {
+                    isArrayCardOnTableFull = false;
+                    break;
+                }
+            }
+            return isArrayCardOnTableFull;
         }
 
         public void GetTrickResult()
