@@ -194,7 +194,6 @@ namespace GameCore
                        {
                            _arrayCardOnTable[i] = card;
                        }
-                       
                     }
                     if (IsArrayCardOnTableFull())
                     {
