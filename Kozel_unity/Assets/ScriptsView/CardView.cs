@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameCore;
 
-namespace GameView
+namespace GameViews
 {
     public class CardView : MonoBehaviour
     {

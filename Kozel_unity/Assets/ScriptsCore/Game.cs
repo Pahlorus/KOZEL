@@ -5,14 +5,18 @@ using UnityEngine;
 
 namespace GameCore
 {
-    
-    public interface IGame
+
+    public interface ICardGame
     {
         void StartGame();
+        void FinishGame();
+        int[] ScoreTeam { get; }
+        Player[] ArrayPlayers { get; }
+        event EventHandler EndGame;
 
     }
 
-    public class Game : MonoBehaviour, IGame
+    public class Game : MonoBehaviour, ICardGame
     {
         #region Fields
         private Player[] _arrayPlayers;
@@ -23,12 +27,23 @@ namespace GameCore
         private const int _scoreLimit = 12;
         private const int _cardDeckQuantity = 36;
         public const int _quantityCardForPlayer = 9;
-        private System.Random _random;
+        //private System.Random _random;
 
         #endregion
 
         #region Properties
+        public int[] ScoreTeam
+        {
+            get { return _scoreTeam; }
+        }
+        public Player[] ArrayPlayers
+        {
+            get { return _arrayPlayers; }
+        }
+        #endregion
 
+        #region Events
+        public event EventHandler EndGame;
         #endregion
 
         private Func<Card, Card[], bool> _checkFunction = IsCorrectCard;
@@ -37,7 +52,7 @@ namespace GameCore
 
         private void Awake()
         {
-            enabled = true;
+            enabled = false;
             _arrayPlayers = new Player[4];
             _scoreTeam = new int[2];
             _tricksTeam = new List<Card>[2];
@@ -51,13 +66,19 @@ namespace GameCore
             _arrayPlayers[3] = new Player();
             _arrayCardOnTable = new Card[4];
             _cardDeck = new List<Card>();
-           // FillingCardDeck();
+
         }
 
         public void StartGame()
         {
             enabled = true;
         }
+
+        public void FinishGame()
+        {
+            enabled = false;
+        }
+
         public void FillingCardDeck()
         {
             // Наполнение колоды карт.
@@ -172,9 +193,12 @@ namespace GameCore
                 // Удалить.
                 Debug.Log("Ничья");
             }
-
+            if (EndGame != null)
+            {
+                EndGame(this, EventArgs.Empty);
+            }
             // Удалить.
-            enabled = false;
+            //enabled = false;
         }
 
         public void SetSecuencingPlayrs()
@@ -182,6 +206,7 @@ namespace GameCore
 
         }
 
+        
         void Update()
         {
 
@@ -217,6 +242,7 @@ namespace GameCore
                     }
                 }
         }
+
         #endregion
     
     }
