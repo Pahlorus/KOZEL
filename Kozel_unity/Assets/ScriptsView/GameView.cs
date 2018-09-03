@@ -59,7 +59,7 @@ namespace GameViews
         public void StartGame()
         {
             _game = new GameObject("Game", typeof(Game)).GetComponent<Game>();
-            _game.transform.SetParent(GameObject.Find("GameView").transform);
+            _game.transform.SetParent(this.transform);
             _game.EndGame += Game_EndGame;
             UIManager.Instance.SwitchMenuOff();
             UIManager.Instance.SwitchTableOn();
@@ -96,7 +96,6 @@ namespace GameViews
             foreach(Card card in _game.ArrayPlayers[0].CardsOnHand)
             {
                 _cardDeck[card.Name].SetParent(_hand_0.transform);
-                _cardDeck[card.Name].transform.position = transform.localPosition;
             }
             foreach (Card card in _game.ArrayPlayers[1].CardsOnHand)
             {
