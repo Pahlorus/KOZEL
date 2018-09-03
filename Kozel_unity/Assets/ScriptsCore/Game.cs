@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -218,13 +219,16 @@ namespace GameCore
                        if( _arrayPlayers[i].GetCard(out card, _arrayCardOnTable, _checkFunction))
                        {
                            _arrayCardOnTable[i] = card;
+
                        }
                     }
                     if (IsArrayCardOnTableFull())
                     {
                         GetTrickResult();
                     }
-                }
+                // Удалить.
+                Thread.Sleep(1000);
+            }
                 else
                 {
                     if ((_scoreTeam[0] < _scoreLimit && _scoreTeam[1] < _scoreLimit)&& (_tricksTeam[0].Count != 0 || _tricksTeam[1].Count != 0))
