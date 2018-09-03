@@ -95,19 +95,45 @@ namespace GameViews
         {
             foreach(Card card in _game.ArrayPlayers[0].CardsOnHand)
             {
-                _cardDeck[card.Name].SetParent(_hand_0.transform);
+                foreach (KeyValuePair<string, Transform> kp in _cardDeck)
+                {
+                    if (card.Name == kp.Key)
+                    {
+                        kp.Value.SetParent(_hand_0.transform);
+                    }
+                    
+                }
+                
             }
             foreach (Card card in _game.ArrayPlayers[1].CardsOnHand)
             {
-                _cardDeck[card.Name].SetParent(_hand_1.transform);
+                foreach (KeyValuePair<string, Transform> kp in _cardDeck)
+                {
+                    if (card.Name == kp.Key)
+                    {
+                        kp.Value.SetParent(_hand_1.transform);
+                    }
+                }
             }
             foreach (Card card in _game.ArrayPlayers[2].CardsOnHand)
             {
-                _cardDeck[card.Name].SetParent(_hand_2.transform);
+                foreach (KeyValuePair<string, Transform> kp in _cardDeck)
+                {
+                    if (card.Name == kp.Key)
+                    {
+                        kp.Value.SetParent(_hand_2.transform);
+                    }
+                }
             }
             foreach (Card card in _game.ArrayPlayers[3].CardsOnHand)
             {
-                _cardDeck[card.Name].SetParent(_hand_3.transform);
+                foreach (KeyValuePair<string, Transform> kp in _cardDeck)
+                {
+                    if (card.Name == kp.Key)
+                    {
+                        kp.Value.SetParent(_hand_3.transform);
+                    }
+                }
             }
 
         }
